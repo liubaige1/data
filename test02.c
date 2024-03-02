@@ -55,6 +55,7 @@ void testDNodeList(){
 }
 int main(){
     testDNodeList();
+    printf("test");
     return 0;
 }
 
