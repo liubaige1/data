@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.jsp": "javascript",
+        "stdlib.h": "c"
+    }
+}

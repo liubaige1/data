@@ -12,6 +12,7 @@ typedef struct Node{
 void InitDNodeLIst(DNode *L)
 {
     L = (DNode *)malloc(sizeof(DNode));
+    printf("sizeof(L)=%d\n",sizeof(L));
     L->prior = NULL; // 头节点的prior始终指向NULL
     L->next = NULL;
 }
