@@ -205,12 +205,76 @@ void InitList(LinkList &L) {
     }
     (L)->next = NULL;
 }
+
+// 尾插法建立单链表
+LinkList Create_TailInster(LinkList &L){
+    if(L==NULL){
+        printf("表为空");
+        // return;
+    }
+    L = (LinkList)malloc(sizeof(LNode));  // 新建一个链表
+    L->next=NULL;  // 初始为空链表
+    int x=0;
+    LNode *p,*s;
+    p=L;
+    while (x<10){
+        s=(LinkList)malloc(sizeof(LNode));
+        x++;
+        s->data=x;
+        p->next=s;
+        p=s;
+        s->next==NULL;
+    }
+    return L;
+}
+
+// 头插法建立单链表
+LinkList Create_TopInster(LinkList &L){
+    if(L==NULL){
+        printf("表为空");
+        // return;
+    }
+    int x=0;
+    LNode *r, *s;
+    r=L;
+    while(x<10){
+        s=(LinkList)malloc(sizeof(LNode));
+        s->data=x;  
+        s->next=r->next;  // 将新生成的LNode指向下一个节点
+        r->next=s;  //指向新生成的节点
+        x++;
+    }
+    return L;
+}
+
+// 链表逆置
+LinkList LinkList_Swap(LinkList &L, LinkList &L1){
+    if(L==NULL){
+        printf("表为空");
+        // return;
+    }
+    LNode *p, *r, *m;
+    p=L;
+    m=L1;
+    int x=0;
+    while (p->next!=NULL&&p!=NULL){
+    // while(x<10){
+        r=(LinkList)malloc(sizeof(LNode));
+        r->data=p->data;
+        p=p->next;
+        r->next=m->next;
+        m->next=r;
+        x++;
+    }
+    return L1;
+}
+
 // 判断单链表是否为空
 bool Empty(LinkList L){
     return L->next==NULL;
 }
 
-// 在单链表的第i个位置插入元素e
+// 在单链表的第i个位置插入元素e 尾插法
 void ListInsert(LinkList* L, int i, ElemType e) {
     if (i < 1) {
         printf("插入位置不合法。\n");
@@ -231,6 +295,7 @@ void ListInsert(LinkList* L, int i, ElemType e) {
     s->next = p->next;
     p->next = s;
 }
+
 
 // 删除单链表的第i个元素
 bool ListDelete(LinkList* L, int i, ElemType &e) {
@@ -256,9 +321,9 @@ bool ListDelete(LinkList* L, int i, ElemType &e) {
 }
 
 // 获取单链表的第i个元素
-ElemType GetElem(LinkList* L, int i) {
+LNode* GetElem(LinkList* L, int i) {
     LinkList p = (*L)->next;
-    int j = 1;
+    int j = 0;
     while (p && j < i) {
         p = p->next;
         j++;
@@ -267,20 +332,21 @@ ElemType GetElem(LinkList* L, int i) {
         printf("位置不合法。\n");
         return 0;
     }
-    return p->data;
+    return p;
 }
 
-//获取单链表元素的位置
 
-int LocateElem(LinkList* L, ElemType e) {
+
+//获取单链表元素
+LNode* LocateElem(LinkList* L, ElemType e) {
     LinkList p = (*L)->next;
-    int i = 1;
+    // int i = 1;
     while (p) {
         if (p->data == e) {
-            return i;
+            return p;
         }
         p = p->next;
-        i++;
+        // i++;
     }
     return 0;
 }
@@ -288,21 +354,35 @@ int LocateElem(LinkList* L, ElemType e) {
 int main(){
     LinkList L;
     InitList(L);
+    Create_TailInster(L);
+    LNode *p;
+    p=L;
     // printf(Empty(L)?"链表为空\n":"链表不为空\n");
     for (int i = 0; i < 10; i++) {
-        ListInsert(&L, i + 1, i);
+        // ListInsert(&L, i + 1, i);
+        // Create_TailInster(L);
     }
+    
+    // Create_TopInster(L);
     for (int i = 0; i < 10; i++) {
-        printf("L.data[%d]=%d\n",i, GetElem(&L,i+1));
+        // printf("L.data[%d]=%d\n",i, GetElem(&L,i)->data);
+        p=p->next;
+        printf("L.data[%d]=%d\n",i,p->data);
     }
+    LinkList L1;
+    InitList(L1);
+    LinkList_Swap(L, L1);
     ElemType e=-1;
-    if (ListDelete(&L, 5, e)){
-        printf("删除的元素是%d\n",e);
-    } else {
-        printf("删除失败\n");
-    }
-    for (int i = 0; i < 9; i++) {
-        printf("L.data[%d]=%d\n",i, GetElem(&L,i+1));
+    // if (ListDelete(&L, 3, e)){
+    //     printf("删除的元素是%d\n",e);
+    // } else {
+    //     printf("删除失败\n");
+    // }
+    p=L1;
+    for (int i = 0; i < 10; i++) {
+        p=p->next;
+        // printf("L1.data[%d]=%d\n",i, GetElem(&L1,i)->data);
+        printf("L1.data[%d]=%d\n",i, p->data);
     }
     return 0;
 }

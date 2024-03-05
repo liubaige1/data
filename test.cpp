@@ -32,7 +32,7 @@
 
     }
 
-    // 在顺序表的第i个位置插入元素e
+    // 在顺序表的第i个位置插入元素e 
     bool ListInsert(SeqList* L, int i, ElemType e) {
         if (L->length == MAX_SIZE) {
             printf("顺序表已满，无法插入。\n");
