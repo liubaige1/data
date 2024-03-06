@@ -223,7 +223,7 @@ LinkList Create_TailInster(LinkList &L){
         s->data=x;
         p->next=s;
         p=s;
-        s->next==NULL;
+        s->next=NULL;
     }
     return L;
 }
@@ -248,26 +248,25 @@ LinkList Create_TopInster(LinkList &L){
 }
 
 // 链表逆置
-LinkList LinkList_Swap(LinkList &L, LinkList &L1){
-    if(L==NULL){
+LinkList LinkList_Swap(LinkList &L, LinkList &L1) {
+    if (L == NULL) {
         printf("表为空");
         // return;
     }
-    LNode *p, *r, *m;
-    p=L;
-    m=L1;
-    int x=0;
-    while (p->next!=NULL&&p!=NULL){
-    // while(x<10){
-        r=(LinkList)malloc(sizeof(LNode));
-        r->data=p->data;
-        p=p->next;
-        r->next=m->next;
-        m->next=r;
-        x++;
+    LNode *p = L->next; // 从L的第一个节点开始
+    LNode *m = L1;       // 从L1的虚拟头节点开始
+
+    while (p != NULL) {
+        LNode *r = (LinkList)malloc(sizeof(LNode)); // 为L1创建一个新节点
+        r->data = p->data; // 将数据从L复制到L1
+        p = p->next; // 移动到L的下一个节点
+
+        r->next = m->next; // 将新节点连接到L1中现有的链表
+        m->next = r;       // 更新L1的头节点指向新节点
     }
-    return L1;
+    return L1; // 返回反转后的链表L1
 }
+
 
 // 判断单链表是否为空
 bool Empty(LinkList L){
