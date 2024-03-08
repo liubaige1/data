@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.jsp": "javascript",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "random": "c"
     }
 }

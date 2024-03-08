@@ -1,6 +1,5 @@
 # Data Struct
 
-#### 介绍
-数据结构
-本人为初学者，仅作为本人平时学习时使用。
+## Introduction
 
+Only use it when studying at ordinary times.
