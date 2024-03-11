@@ -92,6 +92,5 @@ void testSeQueue(){
 }
 int main(){
     testSeQueue();
-    // system("pause");
     return 0;
 }

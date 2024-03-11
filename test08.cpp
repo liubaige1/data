@@ -8,7 +8,7 @@ typedef struct {
     int top; //栈顶指针
 } SqStack;
 
-//初始化栈。构造一个空栈S,分配内存空间。
+//初始化栈
 void InitStack(SqStack& S) {
     S.top = -1;
 }
@@ -48,18 +48,36 @@ bool GetTop(SqStack S, ElemType& x) {
     return true;
 }
 
-void testStack() {
+//括号匹配检查
+bool bracketCheck(char str[], int length) {
     SqStack S;
-    bool b;
-    int i = 0;
-    InitStack(S);
-    printf("%d\n", StackEmpty(S));
-    printf("%d\n", Push(S, i));
-    printf("%d\n", GetTop(S, i));
-    printf("%d\n", Pop(S, i));
+    InitStack(S); //初始化一个栈
+    for (int i = 0; i < length; i++) {
+        if (str[i] == '(' || str[i] == '{' || str[i] == '[') {
+            Push(S, str[i]); //扫描到左括号,入栈
+        } else {
+            if (StackEmpty(S)) { //扫描到右括号，且当前栈空
+                return false; //匹配失败
+            }
+            char topElem;
+            Pop(S, topElem); //栈顶元素出栈
+            if (str[i] == ')' && topElem != '(') {
+                return false;
+            }
+            if (str[i] == ']' && topElem != '[') {
+                return false;
+            }
+            if (str[i] == '}' && topElem != '{') {
+                return false;
+            }
+        }
+    }
+    return StackEmpty(S); //检索完全部括号后,栈空说明匹配成功
 }
 
 int main() {
-    testStack();
+    char str[] = "[(()])";
+    int length = sizeof(str) / sizeof(str[0]);
+    printf("%d\n", bracketCheck(str, length));
     return 0;
 }
