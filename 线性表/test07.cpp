@@ -4,7 +4,7 @@
 #include <stdlib.h>
 typedef int ElemType;
 //链式队列结点
-typedef struct LinkNode{
+typedef struct LinkNode {
     ElemType data;
     struct LinkNode* next;
 } LinkNode;
@@ -14,7 +14,7 @@ typedef struct {
 } LinkQueue;
 
 //初始化队列(带头结点)
-void InitQueue(LinkQueue &Q) {
+void InitQueue(LinkQueue& Q) {
     //初始时 front、rear都指向头节点
     Q.front = Q.rear = (LinkNode*)malloc(sizeof(LinkNode));
     Q.front->next = NULL;
@@ -38,7 +38,7 @@ bool IsEmpty(LinkQueue& Q) {
 
 //新元素入队(带头结点)
 void EnQueue(LinkQueue& Q, ElemType x) {
-    LinkNode *s = (LinkNode*)malloc(sizeof(LinkNode));
+    LinkNode* s = (LinkNode*)malloc(sizeof(LinkNode));
     s->data = x;
     s->next = NULL;
     Q.rear->next = s; //新节点插入到rear之后
@@ -64,7 +64,7 @@ bool DeQueue(LinkQueue& Q, ElemType& x) {
     if (Q.front == Q.rear) {
         return false; //空队
     }
-    LinkNode *p = Q.front->next;
+    LinkNode* p = Q.front->next;
     x = p->data; //用变量x返回队头元素
     Q.front->next = p->next; //修改头结点的next指针
     if (Q.rear == p) { //此次时最后一个结点出队
@@ -104,7 +104,6 @@ void test() {
     DeQueue(Q, d);
     printf("%d\n", c);
     printf("%d\n", d);
-
 }
 int main() {
     test();
