@@ -10,13 +10,25 @@ typedef struct BiTNode {
     BiTNode* right; // 右孩子指针
 } BiTNode, *BiTree;
 
-// 初始化二叉树的二叉链表
-void InitBiTree(BiTree& T) {
-    T = new BiTNode;
-    T->data = 'A';
-    T->left = NULL;
-    T->right = NULL;
+// p指向当前访问结点，pre指向p的前驱，final指向最后一个结点
+BiTNode *p = NULL, *pre = NULL, *final = NULL;
+
+// 访问节点q
+void visit(BiTNode* q) {
+    if (q == p) {
+        final = pre;
+    } else {
+        pre = q;
+    }
 }
+
+// // 初始化二叉树的二叉链表
+// void InitBiTree(BiTree& T) {
+//     T = new BiTNode;
+//     T->data = 'A';
+//     T->left = NULL;
+//     T->right = NULL;
+// }
 
 // 二叉树的前序遍历递归算法
 void PreOrder(BiTree T) {
@@ -31,7 +43,8 @@ void PreOrder(BiTree T) {
 void InOrder(BiTree T) {
     if (T != NULL) {
         InOrder(T->left); // 中序遍历左子树
-        printf("%c", T->data); // 显示结点数据
+        // printf("%c", T->data); // 显示结点数据
+        visit(T);
         InOrder(T->right); // 最后中序遍历右子树
     }
 }
