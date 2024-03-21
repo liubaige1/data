@@ -55,3 +55,51 @@ void PreThread(ThreadTree T) {
         }
     }
 }
+
+void CreatePostThread (ThreadTree T){
+    pre = NULL; // 初始为NULL
+    if (T != NULL) { // 非空二叉树才能线索化
+        PostThread(T); // 后序线索化二叉树
+        if (pre->right == NULL) { // 处理遍历的最后一个结点
+            pre->rtag = 1; // 建立后继线索
+        }
+    }
+}
+
+// 后序线索化
+void PostThread(ThreadTree T){
+    if (T != NULL) {
+        if (T->ltag == 0) { // 左孩子不是前驱线索
+            PostThread(T->left); // 递归左子树线索化
+        }
+        if (T->rtag == 0) { // 右孩子不是后继线索
+            PostThread(T->right); // 递归右子树线索化
+        }
+        visit(T); // 访问当前结点
+    }
+}
+
+// 找到以P为根的子树中，第一个被中序遍历的结点
+ThreadNode* Firstnode(ThreadNode* p) {
+    while (p->ltag == 0) {
+        p = p->left;
+    }
+    return p;
+}
+
+// 在中序线索二叉树中找到结点p的后继结点
+ThreadNode* Nextnode(ThreadNode* p) {
+    if (p->rtag == 0) {
+        return Firstnode(p->right);
+    } else {
+        return p->right;
+    }
+}
+
+// 找到以P为根的子树中，最后一个被中序遍历的结点
+ThreadNode* Lastnode(ThreadNode* p) {
+    while (p->rtag == 0) {
+        p = p->right;
+    }
+    return p;
+}
