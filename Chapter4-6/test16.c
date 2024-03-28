@@ -97,3 +97,41 @@ void BFS_MIN_Distance(ALGraph G, int u) {
         }
     }
 }
+
+//Floyd
+void Floyd() { // A为邻接矩阵
+    for (int k = 0; k < n; k++) { // 以k为中间顶点
+        for (int i = 0; i < n; i++) { // 以i为起点
+            for (int j = 0; j < n; j++) { // 以j为终点
+                if (A[i][j] > A[i][k] + A[k] { j }) { // 以k为中间顶点的路径更短
+                    A[i][j] = A[i][k] + A[k][j]; // 更新最短路径
+                    path[i][j] = k; // 更新路径
+                }
+            }
+        }
+    }
+}
+
+bool TopologicalSort(ALGraph G) {
+    Initstack(S); //初始化栈，存储入度为0的顶点
+    for (int i = 0; i < G.vexnum; i++) {
+        if (indegree[i] == 0) {
+            Push(S, i); //将所有入度为0的顶点进栈
+        }
+    }
+    int count = 0; //计数，记录当前已经输出的顶点数
+    while (!IsEmpty(S)) { //栈不空，则存在入度为0的顶点
+        Pop(S, i); //栈顶元素出栈
+        print[count++] = i; //输出J顶点i
+        for(p=G.vertices[i].firstarc;p;p=p->nextarc){
+            //将所有1指向的J顶点的入度减1，并且将入度减为0的顶点压入栈$
+            v = p->adjvex;
+            if (!(--indegree[v])) {
+                Push(S, v); //入度为0，则入栈
+            }
+        }
+    if (count < G.vexnum) {
+        return false; //排序失败，有向图中有回路
+    } else {
+        return true; //拓扑排序成功
+    }
